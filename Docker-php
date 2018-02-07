@@ -1,0 +1,23 @@
+#Environment variables
+ARG PHP_VERSION=7.2
+ 
+FROM php:${PHP_VERSION}-apache
+
+ENV APACHE_DOCUMENT_ROOT /var/www/app/public
+
+RUN sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/sites-available/*.conf
+RUN sed -ri -e 's!/var/www/!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/apache2.conf /etc/apache2/conf-available/*.conf
+
+# Update packages
+RUN apt-get update
+
+# Install PHP and composer dependencies
+RUN apt-get install -qq git curl libmcrypt-dev libjpeg-dev libpng-dev libfreetype6-dev libbz2-dev
+
+# Clear out the local repository of retrieved package files
+RUN apt-get clean
+
+# Install needed extensions
+# Here you can install any other extension that you need during the test and deployment process
+RUN docker-php-ext-install pdo_mysql zip
+

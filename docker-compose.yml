@@ -1,0 +1,46 @@
+version: '3'
+
+services:
+
+  php-apache:
+    build: 
+      args:
+        - PHP_VERSION=${PHP_VERSION}
+      context: ./
+      dockerfile: Docker-php
+    working_dir: /var/www/app
+    volumes:
+      - "./app:/var/www/app"
+    ports:
+      - $SITE_PORT:80
+  
+  #Composer (For installing Laravel and updating composer packages)
+  composer:
+    build:
+      context: ./
+      dockerfile: Docker-composer
+    volumes:
+      - ./:/app
+    command: bash -c "composer create-project --prefer-dist laravel/laravel app || (echo App already installed. Installing/Updating composer packages && cd app && composer -v update && composer -v install)"
+  
+  # The Database
+  mysql:
+    image: mysql:${MYSQL_TAG}
+    volumes: 
+      - "./.db_data:/var/lib/mysql"
+    environment:
+      - "MYSQL_ROOT_PASSWORD=${DB_PASSWORD}"
+
+  # PhpMyAdmin
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    environment:
+      - "PMA_USER=${DB_USERNAME}"
+      - "PMA_PASSWORD=${DB_PASSWORD}"
+    ports:
+      - ${MYADMIN_PORT}:80
+    restart: always
+    depends_on:
+      - mysql
+    links:
+      - mysql:db

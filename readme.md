@@ -82,17 +82,21 @@ A default `.gitignore` file is supplied for ignoring database if rquired. Larave
 
 ## How to add a new composer package?
 
-You may add the package in composer.json. And restart the containers.
+You may add the package in `composer.json`. And restart the containers.
 
-`docker-compose restart`
+```
+docker-compose restart
+```
 
 This will run the composer update and install commands.
 
 ## How to run artisan commands?
 
-You will need to use the <exec> command to access artisan.
+You will need to use the `exec` command to access artisan.
 
-`docker-compose exec php-apache artisan <command>`
+```
+docker-compose exec php-apache artisan <command>
+```
 
 ## Stopping containers
 

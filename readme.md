@@ -30,7 +30,8 @@ This will boot up the machines and will start the installation of Laravel and co
 
 Note: If you use docker toolbox, you might need to use the IP address of the docker machine rather than `localhost`
 
-#App Folder
+## App Folder
+
 Laravel will be installed in a subfolder `app`.
 
 ## Database

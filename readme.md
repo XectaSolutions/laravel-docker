@@ -1,4 +1,6 @@
-## Wordpress Docker Compose File
+## Laravel Docker Soluion
+
+Lighter alternative to LaraDock.
 
 **Included Applications:**
 
@@ -124,7 +126,7 @@ docker-compose exec php-apache artisan <command>
 docker-compose down
 ```
 
-##Issues with MySQL 8
+## Issues with MySQL 8
 
 Since version 8, the default MySQL authentication plugin has been changed and may cause problems with Laravel or PHPMyAdmin.
 

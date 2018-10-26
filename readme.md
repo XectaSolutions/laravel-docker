@@ -2,19 +2,19 @@
 
 **Included Applications:**
 
-* PHP with Apache
-* Laravel Installation
-* Composer
-* MySQL
-* PhpMyAdmin
+- PHP with Apache
+- Laravel Installation
+- Composer
+- MySQL
+- PhpMyAdmin
 
 ## How to run
 
 Install Docker or Docker Toolbox from http://www.docker.com
 
-* Clone from Repository
+- Clone from Repository
 
-* Change the working directory to the downloaded folder and call docker-compose up
+- Change the working directory to the downloaded folder and run docker-compose up
 
 ```
 docker-compose up
@@ -45,7 +45,20 @@ MySql stores data in local folder `.db_data`. If you delete the folder database 
 
 Default user name is `root` with password `secret`
 
-PhpMyAdmin can be accessed on http://localhost:8081
+PhpMyAdmin can be accessed on http://localhost:8081 or the port you assigned in .env file
+
+To connect from Laravel, use mysql as the host name in Laravel's .env file.
+
+Eg:
+
+```
+DB_CONNECTION=mysql
+DB_HOST=mysql
+DB_PORT=3306
+DB_DATABASE=lara
+DB_USERNAME=root
+DB_PASSWORD=secret
+```
 
 ## Configuration
 
@@ -89,6 +102,12 @@ You may add the package in `composer.json`. And restart the containers.
 docker-compose restart
 ```
 
+Or just start the composer
+
+```
+docker-compose run composer
+```
+
 This will run the composer update and install commands.
 
 ## How to run artisan commands?
@@ -104,3 +123,11 @@ docker-compose exec php-apache artisan <command>
 ```
 docker-compose down
 ```
+
+##Issues with MySQL 8
+
+Since version 8, the default MySQL authentication plugin has been changed and may cause problems with Laravel or PHPMyAdmin.
+
+Please see https://mysqlserverteam.com/upgrading-to-mysql-8-0-default-authentication-plugin-considerations/
+
+Easiest Solution is to use MySQL version 5.7.x

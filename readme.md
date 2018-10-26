@@ -1,4 +1,4 @@
-## Laravel Docker Soluion
+## Laravel Docker Solution
 
 Lighter alternative to LaraDock.
 
